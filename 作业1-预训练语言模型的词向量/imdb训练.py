@@ -57,7 +57,8 @@ class IMDBData():
         self._load("pos")
         self._load("neg")
     def _load(self, label):
-        pattern = re.compile(r"aclImdb/{}/{}/.*\.txt$".format(self.mode,label))
+        pa
+        +ttern = re.compile(r"aclImdb/{}/{}/.*\.txt$".format(self.mode,label))
         #加载数据到内存
         # tarfile解决zip压缩包的创建、读取、写入
         .
