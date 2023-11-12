@@ -4,7 +4,7 @@ import numpy as np
 count=0
 word_embedding={}
 # path='word_embedding_yelp.txt'
-path='test_embedding.txt'
+path='../glove/glove.6B.300d.txt'
 with open(path,'r',encoding='utf-8') as f_word_emb:
     for line in f_word_emb:
         line=line.split()
