@@ -7,9 +7,10 @@ word_embedding={}
 path='../glove/glove.6B.300d.txt'
 with open(path,'r',encoding='utf-8') as f_word_emb:
     for line in f_word_emb:
-        line=line.split()
-        word_embedding[line[0]]=0
-        word_embedding[line[0]]=[float(i) for i in line[1:]]
+        line = line.split()
+        word_embedding[line[0]]  = 0
+        word_embedding[line[0]] = [float(i) for i in line[1:]]
+print(len(word_embedding))
 #2.读入句子，词向量转换为句向量
 #2.1 emb_300d_train.0
 f_w=open('emb_300d_train.0','w',encoding='utf-8')
@@ -32,7 +33,7 @@ with open('../yelp/sentiment.train.0','r',encoding='utf-8') as f_r:
 f_w.close()
 
 #2.2 emb_300d_train.1
-f_w=open('emb_300d_train.1','w',encoding='utf-8')
+f_w_2=open('emb_300d_train.1','w',encoding='utf-8')
 with open('../yelp/sentiment.train.1','r',encoding='utf-8') as f_r:
     for line in f_r:
         words=line.split()
@@ -45,11 +46,11 @@ with open('../yelp/sentiment.train.1','r',encoding='utf-8') as f_r:
         words_emb=np.array(words_emb)
         sent_emb=np.mean(words_emb,axis=0)
         try:
-            f_w.write(' '.join([str(i) for i in list(sent_emb)])+'\n')
+            f_w_2.write(' '.join([str(i) for i in list(sent_emb)])+'\n')
         except:
             continue
-f_w.close()
-
+f_w_2.close()
+print("train over!")
 #2.3 emb_300d_test.0
 f_w=open('emb_300d_test.0','w',encoding='utf-8')
 with open('../yelp/sentiment.test.0','r',encoding='utf-8') as f_r:
@@ -87,6 +88,7 @@ with open('../yelp/sentiment.test.1','r',encoding='utf-8') as f_r:
         except:
             continue
 f_w.close()
+print("test over!")
 
 #3.利用句向量进行逻辑回归（同one-hot方式一样）
 X_Train=[]
@@ -94,7 +96,6 @@ Y_Train=[]
 count=0
 with open('emb_300d_train.0','r',encoding='utf-8') as f_train0:
     for line in f_train0:
-
         if count==20000:
             break
         count+=1
@@ -103,7 +104,6 @@ with open('emb_300d_train.0','r',encoding='utf-8') as f_train0:
 count=0
 with open('emb_300d_train.1','r',encoding='utf-8') as f_train1:
     for line in f_train1:
-
         if count==20000:
             break
         count+=1
@@ -132,12 +132,13 @@ with open('emb_300d_test.1','r',encoding='utf-8') as f_test1:
 
         X_Test.append([float(i) for i in line.strip().split()])
         Y_Test.append(1)
+print("append over")
 
 #4.逻辑回归
 from sklearn.linear_model import LogisticRegression
 classifier=LogisticRegression(random_state=0)
 classifier.fit(X_Train,Y_Train)
-
+print("model succsess")
 
 #5.测试结果
 Y_Pred=classifier.predict(X_Test)
