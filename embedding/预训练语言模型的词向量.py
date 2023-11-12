@@ -129,7 +129,6 @@ with open('emb_300d_test.1','r',encoding='utf-8') as f_test1:
         if count==2000:
             break
         count+=1
-
         X_Test.append([float(i) for i in line.strip().split()])
         Y_Test.append(1)
 print("append over")
