@@ -138,7 +138,6 @@ from sklearn.linear_model import LogisticRegression
 classifier=LogisticRegression(random_state=0)
 classifier.fit(X_Train,Y_Train)
 print("model succsess")
-
 #5.测试结果
 Y_Pred=classifier.predict(X_Test)
 print('train samples counts:',len(X_Train))
