@@ -75,4 +75,4 @@ class IMDBData():
         return len(self.docs)
 
 imdb_train = IMDBData(imdb_path,'train')
-print(imdb_train)
+print(len(imdb_train))
